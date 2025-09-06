@@ -631,6 +631,14 @@
         @media (max-width: 768px) {
             body {
                 overflow-y: auto;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .page-container {
+                height: auto;
+                min-height: 100vh;
+                overflow: visible;
             }
 
             .navigation {
@@ -673,16 +681,33 @@
             }
             
             .page {
+                position: relative;
                 padding: 15px 15px 80px;
-                height: 100vh;
-                overflow-y: auto;
+                height: auto;
+                min-height: calc(100vh - 80px);
+                overflow-y: visible;
+                overflow-x: hidden;
                 -webkit-overflow-scrolling: touch;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .page.center-content {
+                justify-content: center;
+                min-height: calc(100vh - 80px);
                 padding: 15px 15px 80px;
-                justify-content: flex-start;
-                padding-top: 5vh;
+            }
+
+            .page.active {
+                position: relative;
+                opacity: 1;
+                transform: translateX(0);
+                pointer-events: all;
+            }
+
+            .page:not(.active) {
+                display: none;
             }
             
             .main-title { 
@@ -733,6 +758,8 @@
                 margin: 0;
                 border-radius: 20px;
                 max-width: none;
+                width: 100%;
+                flex-shrink: 0;
             }
             
             .gallery-grid {
@@ -810,6 +837,16 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .page-container {
+                height: auto;
+                min-height: 100vh;
+            }
+
             .navigation {
                 gap: 6px;
                 padding: 6px 10px;
@@ -836,11 +873,13 @@
 
             .page {
                 padding: 10px 10px 70px;
+                min-height: calc(100vh - 70px);
             }
 
             .page.center-content {
                 padding: 10px 10px 70px;
-                padding-top: 3vh;
+                justify-content: center;
+                min-height: calc(100vh - 70px);
             }
 
             .main-title {
@@ -861,6 +900,7 @@
             .page-content {
                 padding: 15px 12px;
                 border-radius: 15px;
+                width: 100%;
             }
 
             .countdown {
@@ -1250,7 +1290,18 @@
         });
 
         document.addEventListener('touchmove', function(e) {
-            e.preventDefault();
+            // Only prevent default for horizontal swipes
+            if (startX && startY) {
+                let currentX = e.touches[0].clientX;
+                let currentY = e.touches[0].clientY;
+                let diffX = Math.abs(startX - currentX);
+                let diffY = Math.abs(startY - currentY);
+                
+                // If horizontal swipe is more significant, prevent default
+                if (diffX > diffY && diffX > 30) {
+                    e.preventDefault();
+                }
+            }
         }, { passive: false });
 
         document.addEventListener('touchend', function(e) {
