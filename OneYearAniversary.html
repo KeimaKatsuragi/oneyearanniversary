@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌹 Một Năm Bên Nhau 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 20px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 25px;
+            padding: 15px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            position: relative;
+            overflow: hidden;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726, #ff8a65);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+            transform: translateX(8px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Tooltip for navigation */
+        .nav-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .nav-btn:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Page Container */
+        .page-container {
+            height: 100vh;
+            position: relative;
+        }
+
+        .page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 30px 30px 100px 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page.center-content {
+            justify-content: center;
+            align-items: center;
+            padding: 30px 30px 100px 130px;
+        }
+
+        .page.center-content .page-content {
+            margin-bottom: 0;
+        }
+
+        .page.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .page.prev {
+            transform: translateX(-100px);
+        }
+
+        /* Custom Scrollbar */
+        .page::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .page::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .page::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            border-radius: 10px;
+            border: 2px solid transparent;
+        }
+
+        .page::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #ff5252, #ff9800);
+        }
+
+        /* Floating Hearts Animation */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.7);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Sparkles Effect */
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Content Styling */
+        .page-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .description {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: center;
+            min-width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-item:hover {
+            transform: scale(1.1) rotate(3deg);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .countdown-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .gallery-item {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 25px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .gallery-item:hover::before {
+            left: 100%;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726, #ff8a65);
+            background-size: 200% 200%;
+            animation: gradientMove 4s ease infinite;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .gallery-placeholder:hover {
+            transform: rotateY(15deg) scale(1.02);
+        }
+
+        .gallery-caption {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Video Container */
+        .video-container {
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #9575cd);
+            background-size: 200% 200%;
+            animation: gradientMove 4s ease infinite;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .video-placeholder:hover::before {
+            left: 100%;
+        }
+
+        .video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Timeline */
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-left: 6px solid transparent;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
+                              linear-gradient(135deg, #ffa726, #ff6b6b);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .timeline-item:hover::before {
+            left: 100%;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .timeline-date {
+            font-size: 1.3rem;
+            color: #ffa726;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .timeline-text {
+            color: white;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Love Message */
+        .love-message {
+            font-size: 1.4rem;
+            color: white;
+            line-height: 1.9;
+            font-style: italic;
+            font-weight: 300;
+            animation: heartBeat 3s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 50%, 100% { transform: scale(1); }
+            25%, 75% { transform: scale(1.02); }
+        }
+
+        /* Page Navigation Arrows */
+        .page-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .page-nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(15px);
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .page-nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .page-nav-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .page-nav-btn:hover {
+            transform: scale(1.15) translateY(-2px);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .page-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: scale(0.9);
+        }
+
+        .page-nav-btn:disabled:hover {
+            transform: scale(0.9);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .page-nav-btn span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .navigation {
+                left: 20px;
+                padding: 15px 10px;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 11px;
+            }
+            
+            .page {
+                padding: 30px 20px 100px 90px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navigation {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                top: auto;
+                transform: translateX(-50%);
+                flex-direction: row;
+                width: calc(100% - 40px);
+                padding: 10px 15px;
+                border-radius: 25px;
+            }
+            
+            .nav-btn {
+                width: auto;
+                height: auto;
+                padding: 10px 12px;
+                font-size: 10px;
+                flex: 1;
+                border-radius: 15px;
+            }
+
+            .nav-btn::after {
+                display: none;
+            }
+
+            .nav-btn:hover {
+                transform: translateY(-2px) scale(1.05);
+            }
+
+            .nav-btn.active {
+                transform: translateY(-2px) scale(1.05);
+            }
+            
+            .page {
+                padding: 20px 15px 100px;
+            }
+
+            .page.center-content {
+                padding: 20px 15px 100px;
+            }
+            
+            .main-title { 
+                font-size: 2.8rem; 
+            }
+            
+            .section-title { 
+                font-size: 2.2rem; 
+            }
+            
+            .subtitle { 
+                font-size: 1rem; 
+            }
+            
+            .countdown { 
+                flex-direction: column; 
+                align-items: center; 
+                gap: 15px;
+            }
+            
+            .countdown-item {
+                min-width: 100px;
+                padding: 20px 15px;
+            }
+            
+            .page-content { 
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-placeholder {
+                height: 250px;
+            }
+
+            .video-placeholder {
+                height: 300px;
+                font-size: 1.2rem;
+            }
+
+            .timeline-item {
+                padding: 20px;
+                margin: 15px 0;
+            }
+
+            .page-nav {
+                bottom: 100px;
+                gap: 15px;
+            }
+
+            .page-nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navigation {
+                gap: 8px;
+                padding: 8px 12px;
+                bottom: 15px;
+            }
+            
+            .nav-btn {
+                padding: 8px 8px;
+                font-size: 9px;
+            }
+            
+            .page-nav {
+                bottom: 85px;
+            }
+
+            .page {
+                padding: 15px 10px 90px;
+            }
+
+            .page.center-content {
+                padding: 15px 10px 90px;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .page-content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <!-- Sparkles -->
+    <div class="sparkles" id="sparkles"></div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <button class="nav-btn active" onclick="showPage(0)" data-tooltip="Trang Chủ">🏠</button>
+        <button class="nav-btn" onclick="showPage(1)" data-tooltip="Ảnh">📸</button>
+        <button class="nav-btn" onclick="showPage(2)" data-tooltip="Video">🎬</button>
+        <button class="nav-btn" onclick="showPage(3)" data-tooltip="Timeline">⏰</button>
+        <button class="nav-btn" onclick="showPage(4)" data-tooltip="Lời Nhắn">💌</button>
+    </nav>
+
+    <!-- Page Navigation -->
+    <div class="page-nav">
+        <button class="page-nav-btn" onclick="prevPage()" id="prevBtn">
+            <span>‹</span>
+        </button>
+        <button class="page-nav-btn" onclick="nextPage()" id="nextBtn">
+            <span>›</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page 1: Home -->
+        <div class="page active center-content" id="page-0">
+            <div class="page-content">
+                <h1 class="main-title">💕 Một Năm Yêu Nhau 💕</h1>
+                <p class="subtitle">Kỷ niệm một năm tình yêu đẹp nhất của chúng ta - Từ ngày 11/9/2024</p>
+                
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">365</span>
+                        <span class="countdown-label">Ngày</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">8760</span>
+                        <span class="countdown-label">Giờ</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">525600</span>
+                        <span class="countdown-label">Phút</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">31536000</span>
+                        <span class="countdown-label">Giây</span>
+                    </div>
+                </div>
+                
+                <p class="description">
+                    Chào mừng đến với trang kỷ niệm đặc biệt của chúng ta! 
+                    Từ những cuộc trò chuyện đầu tiên về công việc, đến chuyến du lịch lễ 2/9, 
+                    và ngày tỏ tình đặc biệt 11/9 - cùng khám phá hành trình tình yêu của chúng ta.
+                </p>
+            </div>
+        </div>
+    </style>
+</head>
+<body>
+        <!-- Page 2: Gallery -->
+        <div class="page" id="page-1">
+            <div class="page-content">
+                <h2 class="section-title">� Những Khoảnh Khắc Đẹp �</h2>
+                <p class="subtitle">Những hình ảnh ghi lại hành trình tình yêu của chúng ta</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh những tin nhắn đầu tiên
+                        </div>
+                        <p class="gallery-caption">Những cuộc trò chuyện đầu tiên - Khởi đầu của tình cảm</p>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh chuyến du lịch lễ 2/9
+                        </div>
+                        <p class="gallery-caption">Du lịch lễ Quốc Khánh - Những kỷ niệm đẹp đầu tiên</p>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh sinh nhật & tỏ tình 11/9
+                        </div>
+                        <p class="gallery-caption">Sinh nhật & Tỏ tình - Ngày đặc biệt nhất</p>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh những buổi hẹn hò đầu tiên
+                        </div>
+                        <p class="gallery-caption">Những buổi hẹn hò đầu tiên - Tìm hiểu nhau</p>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh kỷ niệm sinh nhật
+                        </div>
+                        <p class="gallery-caption">Sinh nhật bên nhau - Hạnh phúc tràn đầy</p>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🖼️ Thêm ảnh hiện tại
+                        </div>
+                        <p class="gallery-caption">Hiện tại - Yêu thương ngày càng sâu đậm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Video -->
+        <div class="page center-content" id="page-2">
+            <div class="page-content">
+                <h2 class="section-title">🎬 Video Kỷ Niệm 🎬</h2>
+                <p class="subtitle">Tổng hợp những khoảnh khắc đẹp nhất của chúng ta</p>
+                
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        📹 Thêm video kỷ niệm 1 năm bên nhau
+                    </div>
+                    <p class="description" style="margin-top: 20px;">
+                        Video này sẽ chứa đựng tất cả những kỷ niệm đẹp nhất của chúng ta trong suốt một năm qua.
+                        Từ những nụ cười đầu tiên đến những khoảnh khắc hạnh phúc nhất.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Timeline -->
+        <div class="page" id="page-3">
+            <div class="page-content">
+                <h2 class="section-title">⏰ Dòng Thời Gian Tình Yêu ⏰</h2>
+                <p class="subtitle">Hành trình một năm đầy ý nghĩa của chúng ta</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-date">Tháng 8/2024</div>
+                        <div class="timeline-text">Những cuộc trò chuyện đầu tiên, bàng quơ về công việc nhưng đã có những cảm xúc đặc biệt. Từng câu nói đều khiến tim mình rung động.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2/9/2024 - Lễ Quốc Khánh</div>
+                        <div class="timeline-text">Chuyến du lịch đặc biệt - anh đi ké cùng gia đình em. Đó là lần đầu tiên được ở gần nhau nhiều hơn, tạo ra những kỷ niệm đẹp không thể nào quên.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">11/9/2024 - Sinh nhật & Tỏ tình</div>
+                        <div class="timeline-text">Ngày sinh nhật của anh, cũng là ngày anh chính thức tỏ tình với em. Món quà sinh nhật đẹp nhất đời anh chính là câu trả lời "Có" của em. ❤️</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Tháng 12/2024</div>
+                        <div class="timeline-text">Ba tháng đầu yêu nhau, mọi thứ đều thật tuyệt vời. Mỗi ngày bên em đều là những khoảnh khắc hạnh phúc nhất.</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Tháng 9/2025</div>
+                        <div class="timeline-text">Một năm đã trôi qua kể từ ngày tỏ tình, tình yêu chúng ta ngày càng mạnh mẽ và bền chặt. Em vẫn là ánh sáng trong cuộc đời anh.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Message -->
+        <div class="page center-content" id="page-4">
+            <div class="page-content">
+                <h2 class="section-title">💌 Lời Nhắn Gửi Đến Em 💌</h2>
+                <p class="subtitle">Những lời chân thành nhất từ trái tim anh</p>
+                
+                <div class="love-message">
+                    "Một năm qua, em đã làm cho cuộc đời anh thêm ý nghĩa và đầy màu sắc. 
+                    Mỗi ngày bên em đều là một món quà quý giá mà anh không bao giờ muốn mất. 
+                    Cảm ơn em vì đã yêu anh, vì đã ở bên anh, và vì đã làm cho anh trở thành 
+                    phiên bản tốt nhất của chính mình. 
+                    <br><br>
+                    Anh yêu em nhiều lắm! ❤️
+                    <br><br>
+                    Chúc mừng kỷ niệm 1 năm bên nhau của chúng ta! 🎉"
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 5;
+
+        // Page Navigation Functions
+        function showPage(pageIndex) {
+            // Remove active class from all pages and nav buttons
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active', 'prev');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Add prev class to current page before switching
+            if (pageIndex !== currentPage) {
+                document.getElementById(`page-${currentPage}`).classList.add('prev');
+            }
+
+            // Show new page and update nav
+            setTimeout(() => {
+                document.getElementById(`page-${pageIndex}`).classList.add('active');
+                document.querySelectorAll('.nav-btn')[pageIndex].classList.add('active');
+                currentPage = pageIndex;
+                updateNavButtons();
+            }, pageIndex !== currentPage ? 200 : 0);
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevPage();
+            } else if (e.key >= '1' && e.key <= '5') {
+                e.preventDefault();
+                showPage(parseInt(e.key) - 1);
+            }
+        });
+
+        // Floating Hearts Animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            const hearts = ['💖', '💕', '💗', '💘', '💝', '💟', '💞'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Create hearts continuously
+        setInterval(createHeart, 1500);
+
+        // Sparkles Effect
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            document.getElementById('sparkles').appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Create sparkles continuously
+        setInterval(createSparkle, 800);
+
+        // Countdown Animation (Real-time updating)
+        function updateCountdown() {
+            const startDate = new Date('2024-09-11'); // Ngày tỏ tình 11/9/2024
+            const now = new Date();
+            const timeDiff = now - startDate;
+            
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor(timeDiff / (1000 * 60));
+            const seconds = Math.floor(timeDiff / 1000);
+            
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toLocaleString();
+            document.getElementById('minutes').textContent = minutes.toLocaleString();
+            document.getElementById('seconds').textContent = seconds.toLocaleString();
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run immediately
+
+        // Click Effect - Heart Burst
+        document.addEventListener('click', function(e) {
+            // Don't create hearts on navigation clicks
+            if (e.target.classList.contains('nav-btn') || e.target.classList.contains('page-nav-btn')) {
+                return;
+            }
+
+            // Create a burst of hearts on click
+            for(let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    const clickHearts = ['💕', '💖', '✨', '🌟', '💫'];
+                    heart.innerHTML = clickHearts[Math.floor(Math.random() * clickHearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = (e.clientX + (Math.random() - 0.5) * 60) + 'px';
+                    heart.style.top = (e.clientY + (Math.random() - 0.5) * 60) + 'px';
+                    heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '1000';
+                    heart.style.animation = 'float 2.5s ease-out forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 2500);
+                }, i * 120);
+            }
+        });
+
+        // Swipe Navigation for Mobile
+        let startX = 0;
+        let startY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('touchend', function(e) {
+            if (!startX || !startY) {
+                return;
+            }
+
+            let endX = e.changedTouches[0].clientX;
+            let endY = e.changedTouches[0].clientY;
+
+            let diffX = startX - endX;
+            let diffY = startY - endY;
+
+            // Check if horizontal swipe is more significant than vertical
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                    if (diffX > 0) {
+                        // Swipe left - next page
+                        nextPage();
+                    } else {
+                        // Swipe right - previous page
+                        prevPage();
+                    }
+                }
+            }
+
+            startX = 0;
+            startY = 0;
+        });
+
+        // Initialize
+        updateNavButtons();
+        
+        // Add some visual feedback for interactions
+        document.querySelectorAll('.countdown-item, .gallery-item, .timeline-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform || '';
+                if (!this.style.transform.includes('scale')) {
+                    this.style.transform += ' scale(1.05)';
+                }
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.05)', '');
+            });
+        });
+    </script>
+</body>
+</html>
