@@ -20,6 +20,7 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             height: 100vh;
+            position: relative;
         }
 
         @keyframes gradientBG {
@@ -133,6 +134,7 @@
         .page-container {
             height: 100vh;
             position: relative;
+            overflow: hidden;
         }
 
         .page {
@@ -627,25 +629,35 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                overflow-y: auto;
+            }
+
             .navigation {
                 position: fixed;
-                bottom: 20px;
+                bottom: 15px;
                 left: 50%;
                 top: auto;
                 transform: translateX(-50%);
                 flex-direction: row;
-                width: calc(100% - 40px);
-                padding: 10px 15px;
-                border-radius: 25px;
+                width: calc(100% - 30px);
+                max-width: 400px;
+                padding: 8px 12px;
+                border-radius: 20px;
+                z-index: 1001;
             }
             
             .nav-btn {
                 width: auto;
                 height: auto;
-                padding: 10px 12px;
-                font-size: 10px;
+                padding: 8px 10px;
+                font-size: 12px;
                 flex: 1;
-                border-radius: 15px;
+                border-radius: 12px;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .nav-btn::after {
@@ -653,114 +665,253 @@
             }
 
             .nav-btn:hover {
-                transform: translateY(-2px) scale(1.05);
+                transform: translateY(-1px) scale(1.02);
             }
 
             .nav-btn.active {
-                transform: translateY(-2px) scale(1.05);
+                transform: translateY(-1px) scale(1.02);
             }
             
             .page {
-                padding: 20px 15px 100px;
+                padding: 15px 15px 80px;
+                height: 100vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .page.center-content {
-                padding: 20px 15px 100px;
+                padding: 15px 15px 80px;
+                justify-content: flex-start;
+                padding-top: 5vh;
             }
             
             .main-title { 
-                font-size: 2.8rem; 
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+                line-height: 1.2;
             }
             
             .section-title { 
-                font-size: 2.2rem; 
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+                line-height: 1.2;
             }
             
             .subtitle { 
-                font-size: 1rem; 
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+                line-height: 1.4;
             }
             
             .countdown { 
-                flex-direction: column; 
-                align-items: center; 
-                gap: 15px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin: 20px 0;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .countdown-item {
-                min-width: 100px;
-                padding: 20px 15px;
+                min-width: auto;
+                width: 100%;
+                padding: 15px 10px;
+                border-radius: 15px;
+            }
+
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
             }
             
             .page-content { 
-                padding: 25px 20px;
-                margin: 0 10px;
+                padding: 20px 15px;
+                margin: 0;
+                border-radius: 20px;
+                max-width: none;
             }
             
             .gallery-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .gallery-item {
+                border-radius: 15px;
+                padding: 15px;
             }
 
             .gallery-placeholder {
-                height: 250px;
+                height: 180px;
+                border-radius: 12px;
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .gallery-caption {
+                font-size: 0.85rem;
+            }
+
+            .video-container {
+                margin-top: 20px;
             }
 
             .video-placeholder {
-                height: 300px;
-                font-size: 1.2rem;
+                height: 220px;
+                font-size: 1rem;
+                border-radius: 15px;
+            }
+
+            .timeline-container {
+                max-width: 100%;
             }
 
             .timeline-item {
-                padding: 20px;
-                margin: 15px 0;
+                padding: 15px;
+                margin: 12px 0;
+                border-radius: 15px;
+            }
+
+            .timeline-date {
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+            }
+
+            .timeline-text {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .love-message {
+                font-size: 1.1rem;
+                line-height: 1.6;
             }
 
             .page-nav {
-                bottom: 100px;
-                gap: 15px;
+                bottom: 75px;
+                gap: 12px;
             }
 
             .page-nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 18px;
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 0.9rem;
+                line-height: 1.6;
             }
         }
 
         @media (max-width: 480px) {
             .navigation {
-                gap: 8px;
-                padding: 8px 12px;
-                bottom: 15px;
+                gap: 6px;
+                padding: 6px 10px;
+                bottom: 12px;
+                width: calc(100% - 20px);
             }
             
             .nav-btn {
-                padding: 8px 8px;
-                font-size: 9px;
+                padding: 6px 8px;
+                font-size: 11px;
+                min-height: 36px;
             }
             
             .page-nav {
-                bottom: 85px;
+                bottom: 65px;
+                gap: 10px;
+            }
+
+            .page-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
             }
 
             .page {
-                padding: 15px 10px 90px;
+                padding: 10px 10px 70px;
             }
 
             .page.center-content {
-                padding: 15px 10px 90px;
+                padding: 10px 10px 70px;
+                padding-top: 3vh;
             }
 
             .main-title {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
+                margin-bottom: 12px;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+
+            .subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 15px;
             }
 
             .page-content {
-                padding: 20px 15px;
+                padding: 15px 12px;
+                border-radius: 15px;
+            }
+
+            .countdown {
+                gap: 10px;
+                margin: 15px 0;
+                max-width: 280px;
+            }
+
+            .countdown-item {
+                padding: 12px 8px;
+                border-radius: 12px;
+            }
+
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+
+            .countdown-label {
+                font-size: 0.7rem;
+            }
+
+            .gallery-placeholder {
+                height: 160px;
+                font-size: 0.8rem;
+            }
+
+            .video-placeholder {
+                height: 200px;
+                font-size: 0.9rem;
+            }
+
+            .timeline-item {
+                padding: 12px;
+                margin: 10px 0;
+            }
+
+            .timeline-date {
+                font-size: 1rem;
+            }
+
+            .timeline-text {
+                font-size: 0.85rem;
+            }
+
+            .love-message {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .description {
+                font-size: 0.85rem;
             }
         }
     </style>
